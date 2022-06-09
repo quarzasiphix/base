@@ -1,0 +1,12 @@
+[submodule "openssl"]
+	path = base/vendors/openssl
+	url = git://git.openssl.org/openssl.git
+
+[submodule "nlohmann json"]
+	path = base/vendors/json
+	url = https://github.com/nlohmann/json.git
+
+[submodule "boost"]
+	path = base/vendors/boost/repository
+	url = https://github.com/boostorg/boost.git
+
