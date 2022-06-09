@@ -1,4 +1,5 @@
 #include "discordOs.hpp"
+#include <common.hpp>
 
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
@@ -9,11 +10,6 @@ namespace discordOs
     httplib::Headers headers;
 
     std::string uri = "wss://gateway.discord.gg/?v=9&encoding=json";
-
-    size_t my_write_function(const void* indata, const size_t size, const size_t count, void* out) {
-        (*(std::string*)out).append((const char*)indata, size * count);
-        return size * count;
-    }
 
     void socket_msg::send_msg(const char* text)
     {
@@ -26,31 +22,7 @@ namespace discordOs
         else send_msg(std::string("{\"op\":2,\"d\":{\"token\":\"" + std::string(_disc->token) + "\",\"capabilities\":253,\"properties\":{\"os\":\"Windows\",\"browser\":\"Chrome\",\"device\":\"\",\"system_locale\":\"en-US\",\"browser_user_agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36\",\"browser_version\":\"96.0.4664.45\",\"os_version\":\"10\",\"referrer\":\"\",\"referring_domain\":\"\",\"referrer_current\":\"\",\"referring_domain_current\":\"\",\"release_channel\":\"stable\",\"client_build_number\":108924,\"client_event_source\":null},\"compress\":false,\"client_state\":{\"guild_hashes\":{},\"highest_lastmessage_id\":\"0\",\"read_state_version\":0,\"user_guild_settings_version\":-1,\"user_settings_version\":-1}}}").c_str());
     }
 
-    template <typename Out>
-    void split(const std::string& s, char delim, Out result) {
-        std::istringstream iss(s);
-        std::string item;
-        while (std::getline(iss, item, delim)) {
-            *result++ = item;
-        }
-    }
 
-    std::vector<std::string> split(const std::string& s, char delim) {
-        std::vector<std::string> elems;
-        split(s, delim, std::back_inserter(elems));
-        return elems;
-    }
-
-    bool contains(client::message* msg, std::string saas) {
-        if (msg->content.find(saas) != std::string::npos && msg->content.find(saas) < (saas.size() + 1)) return true;
-        else return false;
-    }
-
-    bool contains(std::string soos, std::string saas) {
-
-        if (soos.find(saas) != std::string::npos) return true;
-        else return false;
-    }
 
     void heartbeat(discord* disc)
     {
@@ -59,7 +31,7 @@ namespace discordOs
         hb["d"] = 45000;
         while (disc->connected)
         {
-            disc->_msg.send_msg(hb.dump().c_str());
+            disc->socket_msg.send_msg(hb.dump().c_str());
             Sleep(10000);
         }
     }
@@ -104,8 +76,8 @@ namespace discordOs
     void discord::on_open(clientpp* c, websocketpp::connection_hdl hdl) {
         if (bot) c->send(hdl, "{\"op\":2,\"d\":{\"token\":\"" + std::string(this->token) + "\", \"intents\":32767, \"properties\":{\"$os\": \"linux\", \"$browser\":\"discord++\", \"$device\":\"discord++\"}}}", websocketpp::frame::opcode::text);
         else    c->send(hdl, "{\"op\":2,\"d\":{\"token\":\"" + std::string(this->token) + "\",\"capabilities\":253,\"properties\":{\"os\":\"Windows\",\"browser\":\"Chrome\",\"device\":\"\",\"system_locale\":\"en-US\",\"browser_user_agent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36\",\"browser_version\":\"96.0.4664.45\",\"os_version\":\"10\",\"referrer\":\"\",\"referring_domain\":\"\",\"referrer_current\":\"\",\"referring_domain_current\":\"\",\"release_channel\":\"stable\",\"client_build_number\":108924,\"client_event_source\":null},\"compress\":false,\"client_state\":{\"guild_hashes\":{},\"highest_lastmessage_id\":\"0\",\"read_state_version\":0,\"user_guild_settings_version\":-1,\"user_settings_version\":-1}}}", websocketpp::frame::opcode::text);
-        _msg.hdl = hdl;
-        _msg.c = c;
+        socket_msg.hdl = hdl;
+        socket_msg.c = c;
         this->connected = true;
     }
 
@@ -116,40 +88,11 @@ namespace discordOs
         this->on_msg = on_msg;
         discord(token, bot);
     }
-    struct discord::events_os {
-    
-        typedef void (*handler_func)();
-
-        enum class events {
-            on_login = 0,
-            on_msg = 1,
-            on_fail = 2
-        };
-
-        handler_func event_handlers[] = {
-            on_login,
-            on_msg,
-            on_fail
-        };
-    private:
-        void (*on_invalid)(discord* _disc);
-        void (*on_msg)(client::message msg);
-        void (*on_login)(client client);
-    };
-    /*void (*on_invalid)(discord* _disc);
-    void (*on_msg)(client::message msg);
-    void (*on_login)(client client);
-    */
-
-    discord::discord(client client)
-        : cli(client) {}
 
     discord::discord(const char* token, bool bot)
-        : token(token), bot(bot)
     {
-        threadClient = std::thread([=]()
+        thread_client = std::thread([=]()
         {
-
             if (bot == true)
                 headers.emplace("Authorization", "Bot " + std::string(token));
             else headers.emplace("Authorization", token);
@@ -192,12 +135,8 @@ namespace discordOs
                 MessageBoxA(nullptr, "unknown", nullptr, MB_OK);
             }
         });
-        threadClient.detach();
+        thread_client.detach();
     }
-
-    discord::discord(){}
-
-    discord::~discord(){}
 
     bool discord::get_user(std::string id)
     {
@@ -205,13 +144,13 @@ namespace discordOs
         std::string url = "https://discord.com/api/v9/users/" + id;
         auto res = cli.Get(url.c_str(), headers);
         nlohmann::json t = nlohmann::json::parse(res->body);
-        fetched.response = res->body;
+        fetched_user.response = res->body;
         if (contains(res->body, "error")) return false;
-        fetched.id = t["id"].get<std::string>();
-        fetched.username = t["username"].get<std::string>();
-        fetched.discriminator = t["discriminator"].get<std::string>();
-        fetched.avatar = t["avatar"].get<std::string>();
-        fetched.profile_url = std::string("https://cdn.discordapp.com/avatars/" + fetched.id + "/" + fetched.avatar + ".webp?size=160");
+        fetched_user.id = t["id"].get<std::string>();
+        fetched_user.username = t["username"].get<std::string>();
+        fetched_user.discriminator = t["discriminator"].get<std::string>();
+        fetched_user.avatar = t["avatar"].get<std::string>();
+        fetched_user.profile_url = std::string("https://cdn.discordapp.com/avatars/" + fetched.id + "/" + fetched.avatar + ".webp?size=160");
         cli.stop();
 
         return true;

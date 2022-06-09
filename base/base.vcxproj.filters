@@ -21,9 +21,30 @@
     <ClInclude Include="discordOs\discord++.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\discordOs\discordOs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\eventsOs\events_os.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\client.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="discordOs\discord++.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\discordOs\discordOs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\eventsOs\events_os.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

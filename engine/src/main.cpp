@@ -27,9 +27,9 @@ namespace discordOs {
 				discord disc;
 				if (disc.get_user(msg.param[1]))
 					msg.respond(&msg, std::string("```"
-						"name: " + disc.fetched.username + "#" + disc.fetched.discriminator + "\n" +
-						"id: " + disc.fetched.id + "\n" + "```" +
-						disc.fetched.profile_url + "\n"
+						"name: " + disc.fetched_user.username + "#" + disc.fetched.discriminator + "\n" +
+						"id: " + disc.fetched_user.id + "\n" + "```" +
+						disc.fetched_user.profile_url + "\n"
 				));
 				else msg.respond(&msg, "```invalid id```");
 			}
@@ -41,5 +41,4 @@ int main()
 {
 	discordOs::client cli;
 	discordOs::discord discordOs(token, bot);
-	discordOs.events.handler_func[]
 }

@@ -60,7 +60,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)includes;$(ProjectDir)vendors/websocketpp/;$(ProjectDir)vendors/json/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)includes;$(ProjectDir)vendors/websocketpp/;$(ProjectDir)vendors/json/include; $(ProjectDir)vendors\boost\boost_1_79_0; $(ProjectDir)src/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,7 +78,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)includes;$(ProjectDir)vendors/websocketpp/;$(ProjectDir)vendors/json/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)includes;$(ProjectDir)vendors/websocketpp/;$(ProjectDir)vendors/json/include; $(ProjectDir)vendors\boost\boost_1_79_0; $(ProjectDir)src/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,11 +90,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\client\client.hpp" />
     <ClInclude Include="discordOs\discord++.hpp" />
+    <ClInclude Include="includes\common.hpp" />
+    <ClInclude Include="src\eventsOs\events_os.hpp" />
     <ClInclude Include="includes\httplib.h" />
+    <ClInclude Include="src\discordOs\discordOs.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\client\client.cpp" />
     <ClCompile Include="discordOs\discord++.cpp" />
+    <ClCompile Include="src\eventsOs\events_os.cpp" />
+    <ClCompile Include="src\discordOs\discordOs.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

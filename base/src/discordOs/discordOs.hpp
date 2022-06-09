@@ -1,12 +1,11 @@
 #pragma once
+
 #include <websocketpp/config/asio_client.hpp>
 #include <websocketpp/client.hpp>
 #include <websocketpp/transport/asio/security/tls.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/function.hpp>
-#include <nlohmann/json.hpp>
 
-#include "functional"
 #define CPPHTTPLIB_OPENSSL_SUPPORT
 
 #include <httplib.h>
@@ -18,8 +17,6 @@
 #pragma comment(lib, "libs/libcurl_a.lib")
 #pragma comment(lib, "libs/libssl.lib")
 
-#include <thread>
-#include <vector>
 
 
 typedef websocketpp::config::asio_client::message_type::ptr message_ptr;
@@ -31,6 +28,29 @@ using websocketpp::lib::bind;
 namespace discordOs
 {
 #define clientpp websocketpp::client<websocketpp::config::asio_tls_client>
+
+    template <typename hdl_prm>
+    struct events_os {
+       
+        std::vector<handler_param> event_objects;
+        std::operator
+       
+        enum event_codes {
+            on_login = 0,
+            on_msg = 1,
+            on_invalid = 2
+        };
+
+        events_os std::operator[](hdl_prm handler_param);
+        
+        /*struct event_objects {
+            client client;
+            discord& disc;
+            client::message msg;
+        };*/
+    };
+
+    events_os events_os;
 
     struct client
     {
@@ -80,7 +100,8 @@ namespace discordOs
         clientpp* c;
 
         void send_msg(const char* message);
-        bool request_login(discordOs::discord* _disc);
+
+        //bool request_login(discordOs::discord* _disc);
     };
 
     struct embed
@@ -103,18 +124,8 @@ namespace discordOs
 
     class discord
     {
-        void on_message(clientpp* c, websocketpp::connection_hdl hdl, message_ptr msg);
-        void on_close(clientpp* c, websocketpp::connection_hdl hdl, discord* _disc);
-        void on_open(clientpp* c, websocketpp::connection_hdl hdl);
-
-        void (*on_invalid)(discord* _disc);
-        void (*on_msg)(client::message msg);
-        void (*on_login)(client client);
-
-        //void on_fail(clientpp* c, websocketpp::connection_hdl hdl, discord* _disc);
-        std::error_code ec;
-        clientpp c;
     public:
+
         const char* token;
         bool bot = true;
 
@@ -131,19 +142,27 @@ namespace discordOs
 
         discord(const char* token, bool bot, void(*on_invalid)(discord* _disc), void(*on_msg)(client::message msg), void(*on_login)(client client));
         discord(const char* token, bool bot);
-        discord(client client);
-        discord();
-        ~discord();
-        struct events_os {
-            enum class events;
-            extern typedef void (*handler_func)(events);
-        };
-        std::thread threadClient;
-        socket_msg _msg;
-        fetched_user fetched;
+        discord(client client) {};
+        discord() {};
+        ~discord() {};
+        std::thread thread_client;
+        socket_msg socket_msg;
+        fetched_user fetched_user;
         embed emb;
         client cli;
-        events_os events;
+
+    private:
+        void on_message(clientpp* c, websocketpp::connection_hdl hdl, message_ptr msg);
+        void on_close(clientpp* c, websocketpp::connection_hdl hdl, discord* _disc);
+        void on_open(clientpp* c, websocketpp::connection_hdl hdl);
+
+        void (*on_invalid)(events_os ev);
+        void (*on_msg)(client::message msg);
+        void (*on_login)(client client);
+
+        //void on_fail(clientpp* c, websocketpp::connection_hdl hdl, discord* _disc);
+        std::error_code ec;
+        clientpp c;
     };
 
     extern bool contains(std::string soos, std::string saas);
