@@ -10,3 +10,6 @@
 	path = base/vendors/boost/repository
 	url = https://github.com/boostorg/boost.git
 
+[submodule "websocketpp"]
+	path = base/vendors/websocketpp
+	url = https://github.com/zaphoyd/websocketpp.git
