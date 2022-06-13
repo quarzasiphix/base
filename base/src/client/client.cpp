@@ -68,7 +68,7 @@ namespace discordOs {
         this->connected = true;
     }
 
-    discordOs::discord(const char* token, bool bot, void(*on_invalid)(discord* _disc), void(*on_msg)(client::message msg), void(*on_login)(client client))
+    discordOs::discord(const char* token, bool bot)
     {
         this->on_invalid = on_invalid;
         this->on_login = on_login;
@@ -143,12 +143,7 @@ namespace discordOs {
         return true;
     }
 
-    discordOs::discordOs(const char* token, bool bot, )
-    {
-    }
-
     discordOs::discordOs(const char* token, bool bot)
     {
     }
-
 }

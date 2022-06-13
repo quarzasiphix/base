@@ -1,6 +1,10 @@
 # vendors
 base/vendors/
 
+#dev things
+base/temp-bin
+
+
 
 # Build results
 [Dd]ebug/

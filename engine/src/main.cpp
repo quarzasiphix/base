@@ -39,6 +39,6 @@ namespace discordOs {
 
 int main()
 {
-	discordOs::client cli;
+	using namespace discordOs;
 	discordOs::discord discordOs(token, bot);
 }
