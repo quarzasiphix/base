@@ -44,6 +44,7 @@ public:
 
     socksOs();
 
+    on events;
     void heartbeat(nlohmann::json hb);
 	bool sendMsg(const char* msg);
 };

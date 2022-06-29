@@ -2,8 +2,15 @@
 #include "clientsOs/clientsOs.hpp"
 
 namespace discordsOs {
-    namespace clientsOs {
+    class discordOs {
 
+    };
+
+    namespace clientsOs {
+        class clientOs {
+            bool bot{};
+            bool running{};
+        };
     }
 }
     /*
