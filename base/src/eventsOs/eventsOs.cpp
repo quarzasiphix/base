@@ -1,4 +1,4 @@
-#include "events_os.hpp"
+#include "eventsOs.hpp"
 
 
 bool contains(std::string soos, std::string saas) {
@@ -8,19 +8,19 @@ bool contains(std::string soos, std::string saas) {
 }
 
 template<class hdl>
-inline bool Ev_Os::events_os::handle<hdl>::callback()
+inline bool Evs_Os::eventOs::handle<hdl>::callback()
 {
     return false;
 }
 
 template<class hdl>
-bool Ev_Os::events_os::handle<hdl>::append(hdl& ref)
+bool Evs_Os::eventOs::handle<hdl>::append(hdl& ref)
 {
     return false;
 }
 
 template<class hdl>
-auto Ev_Os::events_os::handle<hdl>::operator[](hdl& hdl)
+auto Evs_Os::eventOs::handle<hdl>::operator[](hdl& hdl)
 {
     const string buf = hdl;
 

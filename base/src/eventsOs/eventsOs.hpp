@@ -1,8 +1,8 @@
 #pragma once
 #include "common.hpp"
 
-struct Ev_Os {
-    class events_os {
+struct Evs_Os {
+    class eventOs {
         template <class hdl>
         struct handle {
             int size;
