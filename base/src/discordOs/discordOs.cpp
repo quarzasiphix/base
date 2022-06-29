@@ -1,16 +1,5 @@
 #include "discordOs.hpp"
 
-void heartbeat()//discord* disc)
-{
-    nlohmann::json hb;
-    hb["op"] = 1;
-    hb["d"] = 45000;
-    while (disc.connected)
-    {
-        disc.socket_msg.send_msg(hb.dump().c_str());
-        Sleep(10000);
-    }
-}
 
 template <typename Out>
 void split(const std::string& s, char delim, Out result) {

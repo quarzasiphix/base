@@ -1,3 +1,6 @@
+#define DEV
+
+
 #include <iostream>
 #include <discordOs/discordOs.hpp>
 
@@ -40,5 +43,5 @@ namespace discordOs {
 int main()
 {
 	using namespace discordOs;
-	discordOs::discord discordOs(token, bot);
+	discord discordOs(token, bot);
 }

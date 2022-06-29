@@ -1,12 +1,12 @@
-#include "client.hpp"
+#include "clientOs.hpp"
 
 namespace discordOs {
 
-    using namespace clientOs;
+    //using namespace clientOs;
 
-    discordOs& disc;
+    //discordOs& disc;
 
-    void heartbeat( )//discord* disc)
+    /*void heartbeat()//discord* disc)
     {
         nlohmann::json hb;
         hb["op"] = 1;
@@ -17,7 +17,7 @@ namespace discordOs {
             Sleep(10000);
         }
     }
-
+    */
 
     void discordOs::on_message(clientpp* c, websocketpp::connection_hdl hdl)
     {

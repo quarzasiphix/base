@@ -26,24 +26,14 @@ using websocketpp::lib::bind;
 
 
 namespace discordOs {
-#define clientpp websocketpp::client<websocketpp::config::asio_tls_client>
     namespace clientOs {
-        struct socket_msg
-        {
-            websocketpp::connection_hdl hdl;
-            clientpp* c;
-
-            void send_msg(const char* message);
-        };
-
         /*struct embed // deprecated 
         {
             std::string color;
             std::string title;
             std::string image;
         };*/
-
-        struct fetched_user
+        struct fetchedU
         {
             bool is_valid;
             std::string id;

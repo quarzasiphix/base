@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include "clientsOs/clientsOs.hpp"
 
 namespace discordOs {
     namespace clientOs {
@@ -12,8 +13,7 @@ namespace discordOs {
             void (*on_login)();//client client);
 
             //void on_fail(clientpp* c, websocketpp::connection_hdl hdl, discord* _disc);
-            std::error_code ec;
-            clientpp c;
+
 
             //events_os ev_os;
         public:

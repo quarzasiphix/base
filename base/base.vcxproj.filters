@@ -24,13 +24,16 @@
     <ClInclude Include="src\discordOs\discordOs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\eventsOs\events_os.hpp">
+    <ClInclude Include="src\eventsOs\eventsOs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\common.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\client\client.hpp">
+    <ClInclude Include="src\discordOs\clientsOs\clientsOs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\socksOs\socksOs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +44,13 @@
     <ClCompile Include="src\discordOs\discordOs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\eventsOs\events_os.cpp">
+    <ClCompile Include="src\eventsOs\eventsOs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\client\client.cpp">
+    <ClCompile Include="src\discordOs\clientsOs\clientsOs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\socksOs\socksOs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

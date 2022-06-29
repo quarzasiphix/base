@@ -90,17 +90,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\client\client.hpp" />
+    <ClInclude Include="src\socksOs\socksOs.hpp" />
+    <ClInclude Include="src\discordOs\clientsOs\clientsOs.hpp" />
     <ClInclude Include="discordOs\discord++.hpp" />
     <ClInclude Include="includes\common.hpp" />
-    <ClInclude Include="src\eventsOs\events_os.hpp" />
+    <ClInclude Include="src\eventsOs\eventsOs.hpp" />
     <ClInclude Include="includes\httplib.h" />
     <ClInclude Include="src\discordOs\discordOs.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\client\client.cpp" />
+    <ClCompile Include="src\socksOs\socksOs.cpp" />
+    <ClCompile Include="src\discordOs\clientsOs\clientsOs.cpp" />
     <ClCompile Include="discordOs\discord++.cpp" />
-    <ClCompile Include="src\eventsOs\events_os.cpp" />
+    <ClCompile Include="src\eventsOs\eventsOs.cpp" />
     <ClCompile Include="src\discordOs\discordOs.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
